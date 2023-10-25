@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Layout, Menu, theme, Row, Col } from "antd";
+import type { MenuProps } from "antd";
 import {
 	DashboardOutlined,
 	FileTextOutlined,
 	FileAddOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, ConfigProvider, theme, Row, Col } from "antd";
-import type { MenuProps } from "antd";
+import { Routers } from "./routers/Routers";
 import logo from "./assets/company-logo.png";
 
 const items: MenuProps["items"] = [
@@ -35,18 +36,10 @@ const App: React.FC = () => {
 	} = theme.useToken();
 
 	return (
-		<ConfigProvider
-			theme={{
-				components: {
-					Layout: {
-						bodyBg: "#fff0",
-					},
-				},
-			}}
-		>
-			<Layout hasSider>
-				<Sider style={{ backgroundColor: "#fff" }}>
-					<div className="demo-logo-vertical">
+		<Layout hasSider>
+			<Sider style={{ backgroundColor: "#fff" }}>
+				<div className="demo-logo-vertical">
+					<Link to="/">
 						<img
 							src={logo}
 							alt="alina group logo"
@@ -56,41 +49,40 @@ const App: React.FC = () => {
 								margin: "30px 0 20px 30px",
 							}}
 						/>
-					</div>
-					<Menu
-						theme="light"
-						mode="inline"
-						defaultSelectedKeys={["1"]}
-						items={items}
-					/>
-				</Sider>
-				<Layout
+					</Link>
+				</div>
+				<Menu
+					theme="light"
+					mode="inline"
+					defaultOpenKeys={["1", "2", "3"]}
+					defaultSelectedKeys={["1"]}
+					items={items}
+				/>
+			</Sider>
+			<Layout
+				style={{
+					padding: "0 40px",
+				}}
+			>
+				<Header style={{ padding: 0, margin: "0 24px", background: "#e9f5ff" }}>
+					<Row justify="space-between">
+						<Col>Dashboard</Col>
+						<Col>User</Col>
+					</Row>
+				</Header>
+				<Content
 					style={{
-						padding: "0 40px",
+						margin: "24px 16px",
+						padding: 24,
+						minHeight: 280,
+						background: colorBgContainer,
+						borderRadius: "20px",
 					}}
 				>
-					<Header
-						style={{ padding: 0, margin: "0 24px", background: "#e9f5ff" }}
-					>
-						<Row justify="space-between">
-							<Col>Dashboard</Col>
-							<Col>User</Col>
-						</Row>
-					</Header>
-					<Content
-						style={{
-							margin: "24px 16px",
-							padding: 24,
-							minHeight: 280,
-							background: colorBgContainer,
-							borderRadius: "20px",
-						}}
-					>
-						Content
-					</Content>
-				</Layout>
+					<Routers />
+				</Content>
 			</Layout>
-		</ConfigProvider>
+		</Layout>
 	);
 };
 
