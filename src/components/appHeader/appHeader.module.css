@@ -1,0 +1,27 @@
+.header {
+	padding: 0;
+	margin: 10px 24px;
+	background: #e9f5ff;
+	color: #233d82;
+}
+
+.headerContainer {
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center !important;
+}
+
+.header span {
+	margin-left: 8px;
+	font-size: 16px;
+}
+
+.pageTitle {
+	margin: 2px !important;
+	color: #233d82 !important;
+}
+
+.avatar {
+	border: 1px solid #233d82 !important;
+	border-radius: 50% !important;
+}

@@ -1,10 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { Layout, theme, Row, Col } from "antd";
+import { Layout, theme } from "antd";
 import { Routers } from "./routers/Routers";
-import { SideMenu } from "./components";
+import { AppHeader, SideMenu } from "./components";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 const App: React.FC = () => {
 	const location = useLocation();
@@ -22,12 +22,7 @@ const App: React.FC = () => {
 					padding: "0 40px",
 				}}
 			>
-				<Header style={{ padding: 0, margin: "0 24px", background: "#e9f5ff" }}>
-					<Row justify="space-between">
-						<Col>Dashboard</Col>
-						<Col>User</Col>
-					</Row>
-				</Header>
+				<AppHeader userName="Иванов И.И." selectedMenuItem={selectedMenuItem} />
 				<Content
 					style={{
 						margin: "24px 16px",
