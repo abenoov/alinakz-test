@@ -8,11 +8,27 @@ import {
 	ResponsiveContainer,
 } from "recharts";
 
-import { data } from "../../db/apiCurrencyMock";
+import axios from "../../db/apiCurrencyMock";
+import { useEffect, useState } from "react";
 
 interface LineGraphProps {}
 
 export const LineGraph: React.FC<LineGraphProps> = () => {
+	const [data, setData] = useState<Array<string>>([]);
+	useEffect(() => {
+		async function fetchCurrency() {
+			try {
+				const response = await axios.get("/currency");
+				setData(response.data);
+				console.log("response", response);
+			} catch (error) {
+				console.error("Error fetching users:", error);
+			}
+		}
+
+		fetchCurrency();
+	}, []);
+
 	return (
 		<ResponsiveContainer width="100%" height={400}>
 			<ComposedChart

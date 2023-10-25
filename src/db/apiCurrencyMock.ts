@@ -1,4 +1,7 @@
-export const data = [
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+
+const data = [
 	{
 		date: "1-10-2023",
 		buy: 447,
@@ -20,3 +23,9 @@ export const data = [
 		sale: 412,
 	},
 ];
+
+const mock = new MockAdapter(axios);
+
+mock.onGet("/currency").reply(200, data);
+
+export default axios;
