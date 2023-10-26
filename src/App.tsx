@@ -25,7 +25,7 @@ const App: React.FC = () => {
 				<AppHeader userName="Иванов И.И." selectedMenuItem={selectedMenuItem} />
 				<Content
 					style={{
-						margin: "24px 16px",
+						margin: "24px 16px 10% 24px",
 						padding: 24,
 						minHeight: 280,
 						background: colorBgContainer,
