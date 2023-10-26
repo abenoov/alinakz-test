@@ -115,7 +115,6 @@ export const NewApplication: React.FC<NewApplicationProps> = () => {
 							</Form.Item>
 						</Col>
 					</Row>
-
 					<Form.Item name="city" label="Город" rules={[{ required: true }]}>
 						<Select
 							placeholder="Выберите Ваш город"
