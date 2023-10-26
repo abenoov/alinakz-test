@@ -12,6 +12,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 					Layout: {
 						bodyBg: "#fff0",
 					},
+					Table: {
+						headerBg: "#fff",
+						headerColor: "#233d82",
+						headerSplitColor: "#fff",
+					},
 				},
 			}}
 		>
