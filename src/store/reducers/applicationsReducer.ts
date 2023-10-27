@@ -6,6 +6,7 @@ import {
 	APPLICATIONS_FAILED,
 	ApplicationsActions,
 	CREATE_APPLICATION,
+	DELETE_APPLICATION,
 } from "../actions/applicationsActions";
 
 type State = {
@@ -35,6 +36,11 @@ export const applicationsReducer = (
 			return {
 				...state,
 				applications: [...state.applications, action.payload],
+			};
+		case DELETE_APPLICATION:
+			return {
+				...state,
+				applications: state.applications.filter((a) => a.id !== action.payload),
 			};
 		default:
 			return state;
