@@ -1,27 +1,33 @@
-# React + TypeScript + Vite
+Frontend exercises for Alina KZ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Candidate: Mukhtar Abenov
 
-Currently, two official plugins are available:
+Linkedin: https://www.linkedin.com/in/abenoov/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Email: mukhtaraben@gmail.com
 
-## Expanding the ESLint configuration
+## How to run the project with Docker
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```bash
+docker compose up -d --build
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## How to run the project locally
+
+### Install dependencies
+
+Install the project dependencies by running the following command:
+
+```bash
+yarn install
+```
+
+### Start the development server
+
+To start the development server and run your React application, use the following command:
+
+```bash
+yarn dev
+```
+
+This will launch the development server, and you should see a message like "running at:" followed by the local development server URL (e.g., `http://localhost:3000`). Open this URL in your web browser to view your React application.
