@@ -1,22 +1,19 @@
 import React, { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { setApplications } from "../../store/actions/applicationsActions";
+import axios from "axios";
+
 import { Table, Space } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { getApplications } from "../../store/actions";
-import { RootState } from "../../store/store";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 
 interface MyApplicationsProps {}
 
 interface DataType {
 	id: number;
 	key: number;
-	name: string;
-	phoneNumber: string;
-	type: string;
-	date: string;
-	city: string;
-	needCall: boolean;
+	dataIndex: string;
+	align: string;
+	render: VoidFunction;
 }
 
 const columns: ColumnsType<DataType> = [
@@ -27,7 +24,7 @@ const columns: ColumnsType<DataType> = [
 	},
 	{
 		title: "ФИО",
-		dataIndex: "name",
+		dataIndex: "applicantName",
 		key: 2,
 	},
 	{
@@ -37,7 +34,7 @@ const columns: ColumnsType<DataType> = [
 	},
 	{
 		title: "Тип заявки",
-		dataIndex: "type",
+		dataIndex: "applicationType",
 		key: 4,
 	},
 	{
@@ -53,11 +50,14 @@ const columns: ColumnsType<DataType> = [
 	{
 		title: "Звонок",
 		dataIndex: "needCall",
+		align: "center",
 		key: 7,
+		render: (record) => (record ? "Да" : "Нет"),
 	},
 	{
 		title: "",
 		dataIndex: "actions",
+		key: 8,
 		render: () => (
 			<Space size="middle">
 				<a>Edit</a>
@@ -68,14 +68,16 @@ const columns: ColumnsType<DataType> = [
 ];
 
 export const MyApplications: React.FC<MyApplicationsProps> = () => {
-	const dispatch = useDispatch();
-	const products = useSelector((state: RootState) => state.applications);
+	const dispatch = useAppDispatch();
+	const { loading, applications, error } = useAppSelector(
+		(state) => state.applications
+	);
 
 	useEffect(() => {
 		const fetchProducts = async () => {
 			try {
 				const response = await axios.get("/applications");
-				dispatch(getApplications(response.data));
+				dispatch(setApplications(response.data));
 			} catch (error) {
 				console.log(error);
 			}
@@ -86,7 +88,8 @@ export const MyApplications: React.FC<MyApplicationsProps> = () => {
 	return (
 		<Table
 			columns={columns}
-			dataSource={products}
+			dataSource={applications}
+			loading={loading}
 			rowKey={(record) => record.id}
 		/>
 	);

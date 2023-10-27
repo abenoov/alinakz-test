@@ -24,18 +24,28 @@ export const currency_data = [
 export const applications_data = [
 	{
 		id: 1,
-		name: "Mukhtar Abenov",
+		applicantName: "Mukhtar Abenov",
+		price: 800,
+		additionalInfo: {
+			isSendEmail: "Da", // todo
+			isSendSMS: "Da", // todo
+		},
 		phoneNumber: "+77025496788",
-		type: "Классический",
+		applicationType: "Классический",
 		date: "08-09-2023",
 		city: "Алматы",
 		needCall: true,
 	},
 	{
 		id: 2,
-		name: "Ivan Ivanov",
+		applicantName: "Ivan Ivanov",
+		price: 800,
+		additionalInfo: {
+			isSendEmail: "Da", // todo
+			isSendSMS: "Da", // todo
+		},
 		phoneNumber: "+77044496755",
-		type: "Классический",
+		applicationType: "Классический",
 		date: "10-10-2023",
 		city: "Астана",
 		needCall: false,
