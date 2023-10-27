@@ -8,7 +8,7 @@ import {
 	ResponsiveContainer,
 } from "recharts";
 
-import axios from "../../db/apiCurrencyMock";
+import axios from "../../api/api";
 import { useEffect, useState } from "react";
 
 interface LineGraphProps {}
@@ -20,7 +20,6 @@ export const LineGraph: React.FC<LineGraphProps> = () => {
 			try {
 				const response = await axios.get("/currency");
 				setData(response.data);
-				console.log("response", response);
 			} catch (error) {
 				console.error("Error fetching users:", error);
 			}

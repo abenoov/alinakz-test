@@ -3,24 +3,28 @@ import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider } from "antd";
 import App from "./App.tsx";
 import "./index.css";
+import { Provider } from "react-redux";
+import store from "./store/store.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<BrowserRouter>
-		<ConfigProvider
-			theme={{
-				components: {
-					Layout: {
-						bodyBg: "#fff0",
+		<Provider store={store}>
+			<ConfigProvider
+				theme={{
+					components: {
+						Layout: {
+							bodyBg: "#fff0",
+						},
+						Table: {
+							headerBg: "#fff",
+							headerColor: "#233d82",
+							headerSplitColor: "#fff",
+						},
 					},
-					Table: {
-						headerBg: "#fff",
-						headerColor: "#233d82",
-						headerSplitColor: "#fff",
-					},
-				},
-			}}
-		>
-			<App />
-		</ConfigProvider>
+				}}
+			>
+				<App />
+			</ConfigProvider>
+		</Provider>
 	</BrowserRouter>
 );
