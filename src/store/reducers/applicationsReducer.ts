@@ -5,6 +5,7 @@ import {
 	SET_APPLICATIONS,
 	APPLICATIONS_FAILED,
 	ApplicationsActions,
+	CREATE_APPLICATION,
 } from "../actions/applicationsActions";
 
 type State = {
@@ -30,6 +31,11 @@ export const applicationsReducer = (
 			return { ...state, loading: false, applications: action.payload };
 		case APPLICATIONS_FAILED:
 			return { ...state, loading: false, error: action.payload };
+		case CREATE_APPLICATION:
+			return {
+				...state,
+				applications: [...state.applications, action.payload],
+			};
 		default:
 			return state;
 	}

@@ -24,7 +24,7 @@ export const currency_data = [
 export const applications_data = [
 	{
 		id: 1,
-		applicantName: "Mukhtar Abenov",
+		applicationName: "Mukhtar Abenov",
 		price: 800,
 		additionalInfo: ["sendEmail", "sendSMS"],
 		phoneNumber: "+77025496788",
@@ -36,7 +36,7 @@ export const applications_data = [
 	},
 	{
 		id: 2,
-		applicantName: "Ivan Ivanov",
+		applicationName: "Ivan Ivanov",
 		price: 800,
 		additionalInfo: ["sendEmail", "sendSMS"],
 		phoneNumber: "+77044496755",

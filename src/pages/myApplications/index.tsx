@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Application } from "../../types/applications";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { setApplications } from "../../store/actions/applicationsActions";
 import axios from "axios";
@@ -8,23 +9,15 @@ import type { ColumnsType } from "antd/es/table";
 
 interface MyApplicationsProps {}
 
-interface DataType {
-	id: number;
-	key: number;
-	dataIndex: string;
-	align: string;
-	render: VoidFunction;
-}
-
-const columns: ColumnsType<DataType> = [
+const columns: ColumnsType<Application> = [
 	{
 		title: "ID",
 		dataIndex: "id",
 		key: 1,
 	},
 	{
-		title: "ФИО",
-		dataIndex: "applicantName",
+		title: "Названия заявки",
+		dataIndex: "applicationName",
 		key: 2,
 	},
 	{
@@ -75,9 +68,11 @@ const columns: ColumnsType<DataType> = [
 
 export const MyApplications: React.FC<MyApplicationsProps> = () => {
 	const dispatch = useAppDispatch();
-	const { loading, applications, error } = useAppSelector(
-		(state) => state.applications
-	);
+	const {
+		loading,
+		applications,
+		// error, todo
+	} = useAppSelector((state) => state.applications);
 
 	useEffect(() => {
 		const fetchProducts = async () => {

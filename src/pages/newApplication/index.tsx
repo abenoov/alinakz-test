@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
+import { useAppDispatch } from "../../hooks";
+import { createApplication } from "../../store/actions/applicationsActions";
 import { Application } from "../../types/applications";
 
 import type { FormInstance } from "antd";
@@ -15,6 +19,7 @@ import {
 	Row,
 	Col,
 } from "antd";
+import axios from "axios";
 
 interface NewApplicationProps {}
 
@@ -43,19 +48,30 @@ const SubmitButton = ({ form }: { form: FormInstance }) => {
 
 export const NewApplication: React.FC<NewApplicationProps> = () => {
 	const [form] = Form.useForm();
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 
-	const handleFinish = (formData: Application) => {
+	const handleNewApplicaiton = async (formData: Application) => {
 		const newApplication = {
-			id: String(Math.floor(Math.random() * 100000000)),
-			applicantName: String(formData.applicantName),
+			id: Number(Math.floor(Math.random() * 100000000)),
+			applicationName: String(formData.applicationName),
 			applicantsAmount: Number(formData.applicantsAmount),
-			applicationDate: String(formData.applicationDate), // todo
+			// todo : date type should be changed according backend
+			applicationDate: moment(formData.applicationDate).format("DD-MM-YYYY"),
 			applicationType: String(formData.applicationType),
 			city: String(formData.city),
 			needCall: Boolean(formData.needCall),
 			phoneNumber: String(formData.phoneNumber),
 			price: String(formData.price),
+			additionalInfo: formData.additionalInfo,
 		};
+		try {
+			await axios.post("/application/create", newApplication);
+			dispatch(createApplication(newApplication));
+			navigate("/my-applications");
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (
@@ -64,13 +80,17 @@ export const NewApplication: React.FC<NewApplicationProps> = () => {
 			name="validateOnly"
 			layout="vertical"
 			autoComplete="off"
-			initialValues={{ needCall: true, type: "classic", applicantsAmount: 1 }}
-			onFinish={(values) => console.log("values", values)}
+			initialValues={{
+				needCall: true,
+				applicationType: "classic",
+				applicantsAmount: 1,
+			}}
+			onFinish={(values) => handleNewApplicaiton(values)}
 		>
 			<Row gutter={[16, 16]}>
 				<Col span={12}>
 					<Form.Item
-						name="applicantName"
+						name="applicationName"
 						label="Названия заявки"
 						rules={[{ required: true }]}
 					>

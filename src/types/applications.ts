@@ -1,8 +1,7 @@
 export type Application = {
 	id: number;
-	key: number;
-	applicantName: string;
-	price: number;
+	applicationName: string;
+	price: string;
 	additionalInfo: [] | null;
 	phoneNumber: string;
 	applicationType: string;
