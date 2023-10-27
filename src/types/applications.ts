@@ -3,13 +3,11 @@ export type Application = {
 	key: number;
 	applicantName: string;
 	price: number;
-	additionalInfo: {
-		isSendEmail: string; // todo
-		isSendSMS: string; // todo
-	};
+	additionalInfo: [] | null;
 	phoneNumber: string;
 	applicationType: string;
-	date: string;
+	applicationDate: string;
 	city: string;
 	needCall: boolean;
+	applicantsAmount: number;
 };

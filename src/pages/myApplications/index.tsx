@@ -39,7 +39,7 @@ const columns: ColumnsType<DataType> = [
 	},
 	{
 		title: "Кол-во",
-		dataIndex: "date",
+		dataIndex: "applicantsAmount",
 		key: 5,
 	},
 	{
@@ -55,9 +55,15 @@ const columns: ColumnsType<DataType> = [
 		render: (record) => (record ? "Да" : "Нет"),
 	},
 	{
+		title: "Дата",
+		dataIndex: "applicationDate",
+		align: "center",
+		key: 8,
+	},
+	{
 		title: "",
 		dataIndex: "actions",
-		key: 8,
+		key: 9,
 		render: () => (
 			<Space size="middle">
 				<a>Edit</a>

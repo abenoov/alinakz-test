@@ -26,13 +26,11 @@ export const applications_data = [
 		id: 1,
 		applicantName: "Mukhtar Abenov",
 		price: 800,
-		additionalInfo: {
-			isSendEmail: "Da", // todo
-			isSendSMS: "Da", // todo
-		},
+		additionalInfo: ["sendEmail", "sendSMS"],
 		phoneNumber: "+77025496788",
 		applicationType: "Классический",
-		date: "08-09-2023",
+		applicationDate: "08-09-2023",
+		applicantsAmount: 1,
 		city: "Алматы",
 		needCall: true,
 	},
@@ -40,13 +38,11 @@ export const applications_data = [
 		id: 2,
 		applicantName: "Ivan Ivanov",
 		price: 800,
-		additionalInfo: {
-			isSendEmail: "Da", // todo
-			isSendSMS: "Da", // todo
-		},
+		additionalInfo: ["sendEmail", "sendSMS"],
 		phoneNumber: "+77044496755",
 		applicationType: "Классический",
-		date: "10-10-2023",
+		applicationDate: "10-10-2023",
+		applicantsAmount: 1,
 		city: "Астана",
 		needCall: false,
 	},

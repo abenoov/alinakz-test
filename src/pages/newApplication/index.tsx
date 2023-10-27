@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Application } from "../../types/applications";
+
 import type { FormInstance } from "antd";
 import {
 	Button,
@@ -21,7 +23,7 @@ const SubmitButton = ({ form }: { form: FormInstance }) => {
 	// Watch all values
 	const values = Form.useWatch([], form);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		form.validateFields({ validateOnly: true }).then(
 			() => {
 				setSubmittable(true);
@@ -30,7 +32,7 @@ const SubmitButton = ({ form }: { form: FormInstance }) => {
 				setSubmittable(false);
 			}
 		);
-	}, [values]);
+	}, [values, form]);
 
 	return (
 		<Button type="primary" htmlType="submit" disabled={!submittable}>
@@ -41,6 +43,20 @@ const SubmitButton = ({ form }: { form: FormInstance }) => {
 
 export const NewApplication: React.FC<NewApplicationProps> = () => {
 	const [form] = Form.useForm();
+
+	const handleFinish = (formData: Application) => {
+		const newApplication = {
+			id: String(Math.floor(Math.random() * 100000000)),
+			applicantName: String(formData.applicantName),
+			applicantsAmount: Number(formData.applicantsAmount),
+			applicationDate: String(formData.applicationDate), // todo
+			applicationType: String(formData.applicationType),
+			city: String(formData.city),
+			needCall: Boolean(formData.needCall),
+			phoneNumber: String(formData.phoneNumber),
+			price: String(formData.price),
+		};
+	};
 
 	return (
 		<Form
@@ -54,7 +70,7 @@ export const NewApplication: React.FC<NewApplicationProps> = () => {
 			<Row gutter={[16, 16]}>
 				<Col span={12}>
 					<Form.Item
-						name="name"
+						name="applicantName"
 						label="Названия заявки"
 						rules={[{ required: true }]}
 					>
@@ -68,7 +84,7 @@ export const NewApplication: React.FC<NewApplicationProps> = () => {
 						/>
 					</Form.Item>
 					<Form.Item
-						name="type"
+						name="applicationType"
 						label="Тип заявки"
 						rules={[{ required: true }]}
 					>
