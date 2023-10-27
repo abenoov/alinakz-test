@@ -1,53 +1,63 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { setApplications } from "../../store/actions/applicationsActions";
+import axios from "axios";
+
 import { Table, Space } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
 interface MyApplicationsProps {}
 
 interface DataType {
-	name: {
-		first: string;
-		last: string;
-	};
-	gender: string;
-	email: string;
-	login: {
-		uuid: string;
-	};
+	id: number;
+	key: number;
+	dataIndex: string;
+	align: string;
+	render: VoidFunction;
 }
 
 const columns: ColumnsType<DataType> = [
 	{
 		title: "ID",
 		dataIndex: "id",
+		key: 1,
 	},
 	{
 		title: "ФИО",
-		dataIndex: "name",
+		dataIndex: "applicantName",
+		key: 2,
 	},
 	{
 		title: "Номер телефона",
 		dataIndex: "phoneNumber",
+		key: 3,
 	},
 	{
 		title: "Тип заявки",
-		dataIndex: "type",
+		dataIndex: "applicationType",
+		key: 4,
 	},
 	{
 		title: "Кол-во",
 		dataIndex: "date",
+		key: 5,
 	},
 	{
 		title: "Город",
 		dataIndex: "city",
+		key: 6,
 	},
 	{
 		title: "Звонок",
 		dataIndex: "needCall",
+		align: "center",
+		key: 7,
+		render: (record) => (record ? "Да" : "Нет"),
 	},
 	{
 		title: "",
 		dataIndex: "actions",
+		key: 8,
 		render: () => (
 			<Space size="middle">
 				<a>Edit</a>
@@ -58,5 +68,29 @@ const columns: ColumnsType<DataType> = [
 ];
 
 export const MyApplications: React.FC<MyApplicationsProps> = () => {
-	return <Table columns={columns} />;
+	const dispatch = useAppDispatch();
+	const { loading, applications, error } = useAppSelector(
+		(state) => state.applications
+	);
+
+	useEffect(() => {
+		const fetchProducts = async () => {
+			try {
+				const response = await axios.get("/applications");
+				dispatch(setApplications(response.data));
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchProducts();
+	}, [dispatch]);
+
+	return (
+		<Table
+			columns={columns}
+			dataSource={applications}
+			loading={loading}
+			rowKey={(record) => record.id}
+		/>
+	);
 };
