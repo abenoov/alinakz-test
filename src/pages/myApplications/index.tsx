@@ -70,8 +70,11 @@ const columns = (
 				<Popconfirm
 					title="Вы уверены, что хотите удалить?"
 					onConfirm={() => handleDeleteApplication(record)}
+					okText="Да"
+					cancelText="Отменить"
+					placement="left"
 				>
-					<a>Delete</a>
+					<a>Удалить</a>
 				</Popconfirm>
 			</Space>
 		),
@@ -109,7 +112,7 @@ export const MyApplications: React.FC<MyApplicationsProps> = () => {
 			});
 			dispatch(deleteApplication(record.id));
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
