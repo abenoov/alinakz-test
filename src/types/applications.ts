@@ -1,15 +1,12 @@
 export type Application = {
 	id: number;
-	key: number;
-	applicantName: string;
-	price: number;
-	additionalInfo: {
-		isSendEmail: string; // todo
-		isSendSMS: string; // todo
-	};
+	applicationName: string;
+	price: string;
+	additionalInfo: [] | null;
 	phoneNumber: string;
 	applicationType: string;
-	date: string;
+	applicationDate: string;
 	city: string;
 	needCall: boolean;
+	applicantsAmount: number;
 };
