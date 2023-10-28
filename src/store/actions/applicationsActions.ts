@@ -5,6 +5,8 @@ export const SET_APPLICATIONS = "SET_APPLICATIONS" as const;
 export const APPLICATIONS_FAILED = "APPLICATIONS_FAILED" as const;
 
 export const CREATE_APPLICATION = "CREATE_APPLICATION" as const;
+export const DELETE_APPLICATION = "DELETE_APPLICATION" as const;
+export const EDIT_APPLICATION = "EDIT_APPLICATION" as const;
 
 export const loadingApplications = () => ({
 	type: APPLICATIONS_LOADING,
@@ -25,8 +27,20 @@ export const createApplication = (newApplication: Application) => ({
 	payload: newApplication,
 });
 
+export const deleteApplication = (id: number) => ({
+	type: DELETE_APPLICATION,
+	payload: id,
+});
+
+export const editApplication = (editedApplication: Application) => ({
+	type: EDIT_APPLICATION,
+	payload: editedApplication,
+});
+
 export type ApplicationsActions =
 	| ReturnType<typeof loadingApplications>
 	| ReturnType<typeof setApplications>
 	| ReturnType<typeof failedApplications>
-	| ReturnType<typeof createApplication>;
+	| ReturnType<typeof createApplication>
+	| ReturnType<typeof deleteApplication>
+	| ReturnType<typeof editApplication>;

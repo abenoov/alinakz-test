@@ -6,6 +6,8 @@ import {
 	APPLICATIONS_FAILED,
 	ApplicationsActions,
 	CREATE_APPLICATION,
+	DELETE_APPLICATION,
+	EDIT_APPLICATION,
 } from "../actions/applicationsActions";
 
 type State = {
@@ -35,6 +37,18 @@ export const applicationsReducer = (
 			return {
 				...state,
 				applications: [...state.applications, action.payload],
+			};
+		case DELETE_APPLICATION:
+			return {
+				...state,
+				applications: state.applications.filter((a) => a.id !== action.payload),
+			};
+		case EDIT_APPLICATION:
+			return {
+				...state,
+				applications: state.applications.map((a) =>
+					a.id === action.payload.id ? action.payload : a
+				),
 			};
 		default:
 			return state;

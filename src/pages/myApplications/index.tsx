@@ -1,15 +1,24 @@
 import React, { useEffect } from "react";
 import { Application } from "../../types/applications";
 import { useAppSelector, useAppDispatch } from "../../hooks";
-import { setApplications } from "../../store/actions/applicationsActions";
-import axios from "axios";
+import {
+	deleteApplication,
+	setApplications,
+} from "../../store/actions/applicationsActions";
+import { EditApplicationForm } from "../../components";
+import axios from "../../api/api";
 
-import { Table, Space } from "antd";
+import { Table, Space, Popconfirm, message } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { CloseOutlined } from "@ant-design/icons";
 
 interface MyApplicationsProps {}
 
-const columns: ColumnsType<Application> = [
+type TypeEditDeleteApplication = (record: Application) => void;
+
+const columns = (
+	handleDeleteApplication: TypeEditDeleteApplication
+): ColumnsType<Application> => [
 	{
 		title: "ID",
 		dataIndex: "id",
@@ -57,10 +66,18 @@ const columns: ColumnsType<Application> = [
 		title: "",
 		dataIndex: "actions",
 		key: 9,
-		render: () => (
+		render: (_, record) => (
 			<Space size="middle">
-				<a>Edit</a>
-				<a>Delete</a>
+				<EditApplicationForm formData={record} />
+				<Popconfirm
+					title="Вы уверены, что хотите удалить?"
+					onConfirm={() => handleDeleteApplication(record)}
+					okText="Да"
+					cancelText="Отменить"
+					placement="left"
+				>
+					<CloseOutlined style={{ color: "#D20404" }} />
+				</Popconfirm>
 			</Space>
 		),
 	},
@@ -68,6 +85,7 @@ const columns: ColumnsType<Application> = [
 
 export const MyApplications: React.FC<MyApplicationsProps> = () => {
 	const dispatch = useAppDispatch();
+	const [messageApi, contextHolder] = message.useMessage();
 	const {
 		loading,
 		applications,
@@ -86,12 +104,29 @@ export const MyApplications: React.FC<MyApplicationsProps> = () => {
 		fetchProducts();
 	}, [dispatch]);
 
+	const handleDeleteApplication = async (record: Application) => {
+		try {
+			const response = await axios.delete(`/applications/${record.id}`);
+			messageApi.open({
+				type: "success",
+				content: `${response.data.message}`,
+				duration: 3,
+			});
+			dispatch(deleteApplication(record.id));
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return (
-		<Table
-			columns={columns}
-			dataSource={applications}
-			loading={loading}
-			rowKey={(record) => record.id}
-		/>
+		<>
+			{contextHolder}
+			<Table
+				columns={columns(handleDeleteApplication)}
+				dataSource={applications}
+				loading={loading}
+				rowKey={(record) => record.id}
+			/>
+		</>
 	);
 };
