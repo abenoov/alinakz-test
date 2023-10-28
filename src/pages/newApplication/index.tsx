@@ -4,6 +4,7 @@ import moment from "moment";
 import { useAppDispatch } from "../../hooks";
 import { createApplication } from "../../store/actions/applicationsActions";
 import { Application } from "../../types/applications";
+import axios from "../../api/api";
 
 import type { FormInstance } from "antd";
 import {
@@ -19,7 +20,6 @@ import {
 	Row,
 	Col,
 } from "antd";
-import axios from "axios";
 
 interface NewApplicationProps {}
 
@@ -66,8 +66,9 @@ export const NewApplication: React.FC<NewApplicationProps> = () => {
 			additionalInfo: formData.additionalInfo,
 		};
 		try {
-			await axios.post("/application/create", newApplication);
+			const response = await axios.post("/applications", newApplication);
 			dispatch(createApplication(newApplication));
+			console.log("response", response);
 			navigate("/my-applications");
 		} catch (error) {
 			console.error(error);
@@ -91,10 +92,10 @@ export const NewApplication: React.FC<NewApplicationProps> = () => {
 				<Col span={12}>
 					<Form.Item
 						name="applicationName"
-						label="Названия заявки"
+						label="Название заявки"
 						rules={[{ required: true }]}
 					>
-						<Input placeholder="Напишите названия заявки" />
+						<Input placeholder="Напишите название заявки" />
 					</Form.Item>
 					<Form.Item name="price" label="Сумма заявки">
 						<InputNumber

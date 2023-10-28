@@ -15,6 +15,7 @@ mock.onPost("/applications").reply(function (config) {
 	return [
 		200,
 		{
+			message: `Заявка успешно создана`,
 			applications_data,
 		},
 	];
@@ -45,6 +46,37 @@ mock.onDelete(new RegExp("/applications/\\d+")).reply((config) => {
 	} else {
 		return [404, { message: "Неправильный ID" }];
 	}
+});
+
+mock.onPut(/^\/applications\/\d+$/).reply((config) => {
+	if (!config || !config.url) {
+		return [400, { message: "Invalid request" }];
+	}
+	const lastSegment = config.url.split("/").pop();
+	if (!lastSegment) {
+		return [400, { message: "Invalid request" }];
+	}
+
+	const idToEdit = parseInt(lastSegment, 10);
+	if (Number.isNaN(idToEdit)) {
+		return [400, { message: "Invalid ID" }];
+	}
+
+	const applicationIndex = applications_data.findIndex(
+		(app) => app.id === idToEdit
+	);
+
+	if (applicationIndex === -1) {
+		return [404, { message: "Application not found" }];
+	}
+
+	const updatedData = JSON.parse(config.data);
+	applications_data[applicationIndex] = {
+		...applications_data[applicationIndex],
+		...updatedData,
+	};
+
+	return [200, { message: `Заявка ${idToEdit} успешно изменено` }];
 });
 
 export default axios;

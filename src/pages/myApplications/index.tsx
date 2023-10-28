@@ -5,17 +5,19 @@ import {
 	deleteApplication,
 	setApplications,
 } from "../../store/actions/applicationsActions";
+import { EditApplicationForm } from "../../components";
 import axios from "../../api/api";
 
 import { Table, Space, Popconfirm, message } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { CloseOutlined } from "@ant-design/icons";
 
 interface MyApplicationsProps {}
 
-type TypeDeleteApplication = (record: Application) => void;
+type TypeEditDeleteApplication = (record: Application) => void;
 
 const columns = (
-	handleDeleteApplication: TypeDeleteApplication
+	handleDeleteApplication: TypeEditDeleteApplication
 ): ColumnsType<Application> => [
 	{
 		title: "ID",
@@ -66,7 +68,7 @@ const columns = (
 		key: 9,
 		render: (_, record) => (
 			<Space size="middle">
-				<a>Edit</a>
+				<EditApplicationForm formData={record} />
 				<Popconfirm
 					title="Вы уверены, что хотите удалить?"
 					onConfirm={() => handleDeleteApplication(record)}
@@ -74,7 +76,7 @@ const columns = (
 					cancelText="Отменить"
 					placement="left"
 				>
-					<a>Удалить</a>
+					<CloseOutlined style={{ color: "#D20404" }} />
 				</Popconfirm>
 			</Space>
 		),
