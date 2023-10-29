@@ -12,7 +12,6 @@
 }
 
 .header span {
-	margin-left: 8px;
 	font-size: 16px;
 }
 
@@ -24,4 +23,12 @@
 .avatar {
 	border: 1px solid #233d82 !important;
 	border-radius: 50% !important;
+}
+
+.userName {
+	margin-left: 8px;
+}
+
+.burgerMenuIcon {
+	color: #233d82 !important;
 }

@@ -1,6 +1,8 @@
-import { Layout, Row, Col, Avatar, Typography } from "antd";
-import avatar from "../../assets/avatar-mock.jpeg";
+import { Layout, Row, Col, Avatar, Typography, Button } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
+import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 
+import avatar from "../../assets/avatar-mock.jpeg";
 import styles from "./appHeader.module.css";
 
 const { Header } = Layout;
@@ -9,6 +11,7 @@ const { Title } = Typography;
 interface AppHeaderProps {
 	selectedMenuItem: string;
 	userName: string;
+	setCollapsedMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const pageLabels: { [key: string]: string } = {
@@ -20,22 +23,32 @@ const pageLabels: { [key: string]: string } = {
 export const AppHeader: React.FC<AppHeaderProps> = ({
 	selectedMenuItem,
 	userName,
+	setCollapsedMenu,
 }) => {
+	const { md } = useBreakpoint();
+
 	return (
 		<Header className={styles.header}>
 			<Row className={styles.headerContainer}>
-				<Col>
-					<Title className={styles.pageTitle} color="#233D82" level={4}>
-						{pageLabels[selectedMenuItem as string]}
-					</Title>
-				</Col>
+				<Title className={styles.pageTitle} level={4}>
+					{!md && (
+						<Button
+							type="text"
+							icon={<MenuOutlined className={styles.burgerMenuIcon} />}
+							onClick={() =>
+								setCollapsedMenu((collapsedMenu) => !collapsedMenu)
+							}
+						/>
+					)}
+					{pageLabels[selectedMenuItem as string]}
+				</Title>
 				<Col>
 					<Avatar
 						className={styles.avatar}
 						src={<img src={avatar} alt="avatar" />}
 						size="large"
-					/>
-					<span>{userName}</span>
+					></Avatar>
+					<span className={styles.userName}>{userName}</span>
 				</Col>
 			</Row>
 		</Header>
