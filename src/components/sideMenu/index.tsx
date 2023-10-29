@@ -55,6 +55,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({
 				mode="inline"
 				defaultOpenKeys={["dashboard", "my-applications", "new-application"]}
 				defaultSelectedKeys={[selectedMenuItem]}
+				selectedKeys={[location.pathname.split("/")[1] || "dashboard"]}
 				items={menuItems}
 				className={styles.menu}
 				onSelect={() => setIsOpen?.((isOpen) => !isOpen)}

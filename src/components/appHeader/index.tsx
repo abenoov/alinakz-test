@@ -15,7 +15,8 @@ interface AppHeaderProps {
 }
 
 const pageLabels: { [key: string]: string } = {
-	dashboard: "Dashboard: Анализ заявок компании",
+	"/dashboard": "Dashboard",
+	dashboard: "Dashboard",
 	"my-applications": "Мои заявки",
 	"new-application": "Новая заявка",
 };

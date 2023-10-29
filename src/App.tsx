@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Layout, theme } from "antd";
-import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 import { Routers } from "./routers/Routers";
 import { AppHeader, BurgerMenu, SideMenu } from "./components";
+
+import { Layout, theme } from "antd";
+import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 
 const { Content } = Layout;
 
@@ -11,7 +12,8 @@ const App: React.FC = () => {
 	const [collapsedMenu, setCollapsedMenu] = useState<boolean>(false);
 
 	const location = useLocation();
-	const selectedMenuItem: string = location.pathname.substring(1);
+	const selectedMenuItem: string =
+		location.pathname.substring(1) || "/dashboard";
 
 	const {
 		token: { colorBgContainer },
@@ -33,7 +35,7 @@ const App: React.FC = () => {
 			)}
 			<Layout
 				style={{
-					padding: "0 40px",
+					padding: md ? "0 40px" : 0,
 				}}
 			>
 				<AppHeader
@@ -42,6 +44,7 @@ const App: React.FC = () => {
 					setCollapsedMenu={setCollapsedMenu}
 				/>
 				<Content
+					title="jhe"
 					style={{
 						margin: "24px 16px 10% 24px",
 						padding: 24,
