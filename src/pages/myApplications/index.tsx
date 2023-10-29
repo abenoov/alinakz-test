@@ -23,6 +23,7 @@ const columns = (
 		title: "ID",
 		dataIndex: "id",
 		key: 1,
+		fixed: "left",
 	},
 	{
 		title: "Названия заявки",
@@ -66,6 +67,7 @@ const columns = (
 		title: "",
 		dataIndex: "actions",
 		key: 9,
+		fixed: "right",
 		render: (_, record) => (
 			<Space size="middle">
 				<EditApplicationForm formData={record} />
@@ -126,6 +128,7 @@ export const MyApplications: React.FC<MyApplicationsProps> = () => {
 				dataSource={applications}
 				loading={loading}
 				rowKey={(record) => record.id}
+				scroll={{ x: 600 }}
 			/>
 		</>
 	);
